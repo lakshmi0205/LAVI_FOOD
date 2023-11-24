@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HELLO WELLCOME</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        #cartCount {
+            color: #fff;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>HELLO WELLCOME</h1>
+</header>
+
+<nav>
+    <a href="food.html" onclick="showCategory('default')">Back</a>
+    <a href="#" onclick="showCategory('Non Veg')">Non Veg</a>
+    <a href="#" onclick="showCategory('Veg')">Veg</a>
+    <a href="#" onclick="showCategory('vegetables-Currys')">Vegetables-Currys</a>
+    <a href="food4.html">Cart <span id="cartCount">0</span></a>
+</nav>
+
+<section id="products">
+    <!-- Product items will be dynamically added here using JavaScript -->
+</section>
+
+<footer>
+    <p>&copy; 2023 Colorful Website. All rights reserved.</p>
+</footer>
+
+<script>
+    const cartCount = document.getElementById('cartCount');
+    let cartTotal = 0;
+
+    // Dummy function to add a product to the cart
+    function addToCart(productName, productPrice) {
+        cartTotal++;
+        cartCount.innerText = cartTotal;
+        alert(`Added ${productName} to the cart. Total Price: $${productPrice.toFixed(2)}`);
+    }
+
+    // Function to show products based on category
+    function showCategory(category) {
+        const productsContainer = document.getElementById('products');
+        productsContainer.innerHTML = '';
+
+        let categoryProducts;
+
+        if (category === 'default') {
+            // Default category (you can set it to any default category)
+            categoryProducts = [
+                { name: 'Non Veg', price: 999.99, image: 'https://images.hindustantimes.com/rf/image_size_640x362/HT/p2/2017/10/07/Pictures/_df6cfee8-ab4b-11e7-8fa9-3a95f17ae4d1.jpg' },
+                { name: 'Veg', price: 399.99, image: 'https://imgk.timesnownews.com/story/non-veg-thali-calories.gif' }
+            ];
+        } else if (category === 'Non Veg') {
+            categoryProducts = [
+                { name: 'Chiken Biriyani', price: 999.99, image: 'https://img.freepik.com/premium-photo/dum-handi-chicken-biryani-is-prepared-earthen-clay-pot-called-haandi-popular-indian-non-vegetarian-food_466689-52344.jpg' },
+                { name: 'Palav', price: 399.99, image: 'https://i.pinimg.com/736x/f4/91/5b/f4915bb9b803985966d45a0cfdb9490f.jpg' },
+                { name: 'Mottuon Biriyani', price: 299.99, image: 'https://t3.ftcdn.net/jpg/02/51/39/64/360_F_251396433_gB6LZnq05FgnBnnFCouK5gPbhEi1IYMo.jpg' },
+                { name: 'Fish Curry', price: 79.99, image: 'https://vaya.in/recipes/wp-content/uploads/2018/02/shutterstock_770514466.jpg' }
+            ];
+        } else if (category === 'Veg') {
+            categoryProducts = [
+                { name: 'Panner-curry', price: 19.99, image: 'https://madscookhouse.com/wp-content/uploads/2020/10/Paneer-Butter-Masala-Nut-Free.jpg    ' },
+                { name: 'Veg Biriyani', price: 49.99, image: 'https://media.istockphoto.com/id/179085494/photo/indian-biryani.jpg?s=612x612&w=0&k=20&c=VJAUfiuavFYB7PXwisvUhLqWFJ20-9m087-czUJp9Fs=' }
+            ];
+        } else if (category === 'vegetables-Currys') {
+            categoryProducts = [
+                { name: 'Carrot Curry', price: 1.99, image: 'https://images.squarespace-cdn.com/content/v1/55be995de4b071c106b3b4c0/24591c1d-49e4-465e-90e9-099f53fc4484/Red+Curry+Glazed+Carrots-18.jpg?format=2500w' },
+                { name: 'Broccoli-Curry', price: 2.99, image: 'https://images.aws.nestle.recipes/resized/1d2444192c6aa300d05b965d5568e85b_CAULIFLOWER-AND-BROCCOLI-CURRY-Sri-Lanka_21_944_531.jpg' }
+            ];
+        }
+
+        categoryProducts.forEach(product => {
+            const productElement = createProductElement(product);
+            productsContainer.appendChild(productElement);
+        });
+    }
+
+    // Function to create product elements
+    function createProductElement(product) {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+        productElement.innerHTML = `
+            <h2>${product.name}</h2>
+            <img src="${product.image}" alt="${product.name}">
+            <p>$${product.price.toFixed(2)}</p>
+            <button onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+        `;
+        return productElement;
+    }
+
+    // Initial display (default category)
+    showCategory('default');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyment section</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #ff6f61;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pyment Section</h1>
+</header>
+
+<main>
+    <h2>Order Summary</h2>
+    <!-- Display the ordered items and total price from the cart -->
+    <p>Items in your cart:</p>
+    <ul id="cartItems"></ul>
+    <p>Total Price: $<span id="totalPrice">0.00</span></p>
+
+    <h2>Payment Details</h2>
+    <form id="paymentForm">
+        <!-- Add payment form fields here (e.g., credit card information) -->
+        <label for="creditCard">Credit Card:</label>
+        <input type="text" id="creditCard" name="creditCard" required>
+
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" required>
+
+        <br><br>
+
+        <button type="submit">Make Payment</button><br>
+        <br>
+        <button><a href="food.html">Back</a></button>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2023 Social Cruise Website. All rights reserved.</p>
+</footer>
+
+<script>
+    // Retrieve cart items and total price from local storage
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const totalPrice = localStorage.getItem('totalPrice') || '0.00';
+
+    // Display cart items and total price on the checkout page
+    const cartItemsList = document.getElementById('cartItems');
+    const totalElement = document.getElementById('totalPrice');
+
+    cartItemsList.innerHTML = cartItems.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('');
+    totalElement.innerText = totalPrice;
+
+    // Handle the payment form submission
+    const paymentForm = document.getElementById('paymentForm');
+
+    paymentForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        // In a real scenario, you would handle secure payment processing here
+        alert('Payment Successful! Thank you for your purchase.');
+
+        // Clear the cart after successful payment
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('totalPrice');
+
+        // Redirect to the home page
+        window.location.href = 'index.html';
+    });
+</script>
+
+</body>
+</html>
